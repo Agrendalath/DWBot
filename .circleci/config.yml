@@ -22,7 +22,7 @@ jobs:
                     dpkg -i pkg-mozilla-archive-keyring_1.1_all.deb
                     rm pkg-mozilla-archive-keyring_1.1_all.deb
                     apt-get update
-                    apt-get install -y firefox-esr
+                    apt-get install -y firefox-esr xvfb
 
                     python3 -m venv venv
                     . venv/bin/activate

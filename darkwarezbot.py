@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 import credentials
+import os
 import requests
 import time
 from pyvirtualdisplay import Display
 from selenium import webdriver
 
 payload = {
-        'usrname': credentials.login,
-        'passwrd': credentials.password,
+        'usrname': os.environ.get('login', credentials.login),
+        'passwrd': os.environ.get('password', credentials.password),
         'autologin': 'on',
         'login': 'Zaloguj'
 }
