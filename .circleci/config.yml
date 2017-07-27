@@ -17,7 +17,7 @@ jobs:
             - run:
                 name: Install dependencies
                 command: |
-                    echo "deb deb http://security.debian.org/ jessie/updates main" > /etc/apt/sources.list.d/debian-mozilla.list
+                    echo "deb http://security.debian.org/ jessie/updates main" > /etc/apt/sources.list.d/debian-mozilla.list
                     wget mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb
                     dpkg -i pkg-mozilla-archive-keyring_1.1_all.deb
                     rm pkg-mozilla-archive-keyring_1.1_all.deb
