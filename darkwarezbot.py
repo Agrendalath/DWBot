@@ -25,6 +25,8 @@ ffprofile.add_extension(extension='adblock.xpi')
 driver = webdriver.Firefox(firefox_profile=ffprofile)
 
 driver.get(login_url)
+time.sleep(6)  # Bypass CloudFlare DDoS protection
+
 username = driver.find_element_by_name('usrname')
 password = driver.find_element_by_name('passwrd')
 
@@ -33,7 +35,7 @@ password.send_keys(payload['passwrd'])
 
 driver.find_element_by_name('login').click()
 
-time.sleep(10)
+time.sleep(10)  # Wait for page to load
 
 # driver.get_screenshot_as_file('test.png')
 
