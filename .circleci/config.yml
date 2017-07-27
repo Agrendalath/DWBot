@@ -17,8 +17,13 @@ jobs:
             - run:
                 name: Install dependencies
                 command: |
+                    touch /etc/apt/sources.list.d/debian-mozilla.list
+                    deb http://mozilla.debian.net/ jessie-backports firefox-release
+                    wget mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb
+                    dpkg -i pkg-mozilla-archive-keyring_1.1_all.deb
+                    rm pkg-mozilla-archive-keyring_1.1_all.deb
                     apt-get update
-                    apt-get install firefox
+                    apt-get install -y firefox
                     python3 -m venv venv
                     . venv/bin/activate
                     pip install -r requirements.txt
