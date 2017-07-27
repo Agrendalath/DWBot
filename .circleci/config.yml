@@ -17,8 +17,7 @@ jobs:
             - run:
                 name: Install dependencies
                 command: |
-                    touch /etc/apt/sources.list.d/debian-mozilla.list
-                    deb http://mozilla.debian.net/ jessie-backports firefox-release
+                    echo "deb http://mozilla.debian.net/ jessie-backports firefox-release" > /etc/apt/sources.list.d/debian-mozilla.list
                     wget mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb
                     dpkg -i pkg-mozilla-archive-keyring_1.1_all.deb
                     rm pkg-mozilla-archive-keyring_1.1_all.deb
