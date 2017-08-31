@@ -1,4 +1,3 @@
-app/credentials.py
-venv
 geckodriver.log
 *.pyc
+.env

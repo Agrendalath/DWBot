@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import credentials
 import os
 import time
 from pyvirtualdisplay import Display
@@ -17,42 +16,51 @@ def find_login_fields(driver: Firefox) -> Tuple[WebElement, WebElement]:
         driver.find_element_by_name('passwrd')
 
 
-payload = {
-        'usrname': os.environ.get('login', credentials.login),
-        'passwrd': os.environ.get('password', credentials.password),
-        'autologin': 'on',
-        'login': 'Zaloguj'
-}
-login_url = 'https://darkwarez.pl/forum/login.php'
-url = "https://www.darkwarez.pl/forum"
+def main():
+    try:
+        payload = {
+                'usrname': os.environ['login'],
+                'passwrd': os.environ['password'],
+                'autologin': 'on',
+                'login': 'Zaloguj'
+        }
+    except KeyError:
+        print('You have to provide LOGIN and PASSWORD as env variables.')
+        return
 
-display = Display(visible=0, size=(800, 600))
-display.start()
+    login_url = 'https://darkwarez.pl/forum/login.php'
 
-ffprofile = FirefoxProfile()
-ffprofile.add_extension(extension='adblock.xpi')
-driver = Firefox(firefox_profile=ffprofile)
+    display = Display(visible=0, size=(800, 600))
+    display.start()
 
-driver.get(login_url)
+    ffprofile = FirefoxProfile()
+    ffprofile.add_extension(extension='adblock.xpi')
+    driver = Firefox(firefox_profile=ffprofile)
 
-username, password = find_login_fields(driver)
+    driver.get(login_url)
 
-username.send_keys(payload['usrname'])
-password.send_keys(payload['passwrd'])
+    username, password = find_login_fields(driver)
 
-driver.find_element_by_name('login').click()
+    username.send_keys(payload['usrname'])
+    password.send_keys(payload['passwrd'])
 
-time.sleep(10)  # Wait for page to load
+    driver.find_element_by_name('login').click()
 
-aElements = driver.find_elements_by_tag_name("a")
-for name in aElements:
-    if (name.get_attribute("href") is not None
-            and "javascript:void" in name.get_attribute("href")):
-        if name.is_displayed():
-            name.click()
-            print("Done.")
-        else:
-            print("You've already collected diamonds today.")
-        break
+    time.sleep(10)  # Wait for page to load
 
-display.stop()
+    aElements = driver.find_elements_by_tag_name('a')
+    for name in aElements:
+        if (name.get_attribute('href') is not None
+                and 'javascript:void' in name.get_attribute('href')):
+            if name.is_displayed():
+                name.click()
+                print('Done.')
+            else:
+                print('You\'ve already collected diamonds today.')
+            break
+
+    display.stop()
+
+
+if __name__ == '__main__':
+    main()
