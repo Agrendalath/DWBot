@@ -1,4 +1,4 @@
-/credentials.py
-/venv
-/geckodriver.log
+app/credentials.py
+venv
+geckodriver.log
 *.pyc
